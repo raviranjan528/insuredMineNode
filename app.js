@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://root:root@ds117093.mlab.com:17093/demotecholution');
+mongoose.connect('mongodb://root:root@ds129013.mlab.com:29013/shubhamdemoproject');
 var index = require('./routes/index');
 var cors = require('cors');
 var app = express();
@@ -24,8 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/', index);
 //routes
- app.use('/cars', require('./routes/car/index'));
- app.use('/carmodels', require('./routes/carmodel/index'));
+ app.use('/insurance', require('./routes/insurance/index'));
+ app.use('/insuranceOnloaction', require('./routes/insuranceOnloaction/index'));
+  app.use('/user', require('./routes/user/index'));
+ app.use('/saveInformation', require('./routes/saveInformation/index'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

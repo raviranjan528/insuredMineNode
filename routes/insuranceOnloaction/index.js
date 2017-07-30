@@ -16,16 +16,13 @@ var Schema = mongoose.Schema;
 var express = require('express');
 var router = express.Router();
 
-var CarmodelSchema = new mongoose.Schema({
- name:{
+var insuranceOnloactionSchema = new mongoose.Schema({
+ zipCode:{
  	type:String
  },
- imageUrl:{
- 	type:String
- },
- car:{
+ insurance:{
        type: Schema.ObjectId,
-       ref: 'Car'
+       ref: 'Insurance'
   },
  createdAt:{
  	type:Date,
@@ -33,31 +30,30 @@ var CarmodelSchema = new mongoose.Schema({
  }
 });
 
-var Carmodel = mongoose.model('Carmodel', CarmodelSchema);
+var insuranceOnloaction = mongoose.model('insuranceOnloaction', insuranceOnloactionSchema);
 
 
 /* GET home page. */
 router.get('/:id', function(req, res, next) {
-  Carmodel.find({'car':req.params.id}).populate('car', 'name').exec(function (err, carmodel) {
+  insuranceOnloaction.find({'zipCode':req.params.id}).populate('insurance').exec(function (err, insuranceonloaction) {
     if (err) {
-        console.log('err carmodel: ' + err);
+        console.log('err insuranceonloaction: ' + err);
     }
-    if (!carmodel) {
+    if (!insuranceonloaction) {
       return res.status(404).send('Not Found');
     }
-    return res.json(carmodel);
+    return res.json(insuranceonloaction);
   });
 });
 
 router.post('/', function(req, res, next) {
-  var carmodel = new Carmodel();
-    carmodel.name = req.body.name;
-    carmodel.imageUrl = req.body.imageUrl;
-    carmodel.car = req.body.car;
-     carmodel.save()
-      .then(function(carmodel) {
+  var insuranceonloaction = new insuranceOnloaction();
+    insuranceonloaction.zipCode = req.body.zipCode;
+    insuranceonloaction.insurance = req.body.insurance;
+     insuranceonloaction.save()
+      .then(function(insuranceonloaction) {
 
-        res.json(carmodel);
+        res.json(insuranceonloaction);
       })
 });
 
